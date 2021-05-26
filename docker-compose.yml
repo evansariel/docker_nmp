@@ -1,0 +1,44 @@
+version: "3"
+services:
+  mariadb:
+    restart: always
+    image: mariadb:latest
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    environment: 
+      - MARIADB_ROOT_PASSWORD=1234
+    networks:
+      - mynet
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+  nginx:
+    restart: unless-stopped
+    image: nginx/php74:0.1
+    container_name: nginx
+    networks:
+      - mynet
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+        - /Applications/MAMP/htdocs:/projects
+        - ./site.conf:/etc/nginx/conf.d/site.conf
+        - ./log/nginx:/var/log/nginx
+  php74:
+    #build: ./files/php/
+    image: php74/add_imagick:0.2
+    container_name: php74
+    restart: unless-stopped
+    networks:
+      - mynet
+    volumes:
+      - /Applications/MAMP/htdocs:/projects
+    depends_on:
+      - mariadb
+    environment:
+      DB_ROOT_PW: "1234"
+networks:
+  mynet:
+    external: true
