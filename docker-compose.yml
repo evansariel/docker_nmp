@@ -15,7 +15,7 @@ services:
       - ./log/mysql:/var/log/mysql
   nginx:
     restart: unless-stopped
-    image: nginx/php74:0.1
+    image: evansariel/nginx:latest
     container_name: nginx
     networks:
       - mynet
