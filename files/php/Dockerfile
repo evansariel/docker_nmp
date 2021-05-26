@@ -1,5 +1,5 @@
 FROM php:7.4.3-fpm
- 
+
 RUN apt-get update && apt-get install -y \
         # For php gd ext
         libfreetype6-dev \
