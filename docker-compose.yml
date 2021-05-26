@@ -6,7 +6,7 @@ services:
     container_name: mariadb
     ports:
       - "3306:3306"
-    environment: 
+    environment:
       - MARIADB_ROOT_PASSWORD=1234
     networks:
       - mynet
@@ -28,7 +28,7 @@ services:
         - ./log/nginx:/var/log/nginx
   php74:
     #build: ./files/php/
-    image: php74/add_imagick:0.2
+    image: evansariel/php74:latest
     container_name: php74
     restart: unless-stopped
     networks:
