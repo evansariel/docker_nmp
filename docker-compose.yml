@@ -12,7 +12,7 @@ services:
     networks:
       - mynet
     volumes:
-      - ./db:/var/lib/mysql
+      - ~/Library/Containers/com.docker.docker/Data/vms/db:/var/lib/mysql
       - ./conf/mysql/conf.d:/etc/mysql/conf.d
   nginx:
     restart: unless-stopped
