@@ -1,19 +1,18 @@
 version: "3"
 services:
-  mysql:
+  mariadb:
     restart: always
-    image: mysql:5.7
-    container_name: mysql
+    image: mariadb:latest
+    container_name: mariadb
     ports:
       - "3306:3306"
-    command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_ROOT_PASSWORD=1234
+      - MARIADB_ROOT_PASSWORD=1234
     networks:
       - mynet
     volumes:
       - ./db:/var/lib/mysql
-      - ./conf/mysql/conf.d:/etc/mysql/conf.d
+      - ./log/mysql:/var/log/mysql
   nginx:
     restart: unless-stopped
     image: evansariel/nginx:latest
@@ -37,7 +36,7 @@ services:
     volumes:
       - /Applications/MAMP/htdocs:/projects
     depends_on:
-      - mysql
+      - mariadb
     environment:
       DB_ROOT_PW: "1234"
 networks:
