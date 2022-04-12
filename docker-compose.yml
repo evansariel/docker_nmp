@@ -27,26 +27,19 @@ services:
         - /Applications/MAMP/htdocs:/projects
         - ./site.conf:/etc/nginx/conf.d/site.conf
         - ./log/nginx:/var/log/nginx
-  php-8:
-    build: ./docker/php-8/build
-    image: php-8
+  php74:
+    #build: ./files/php/
+    image: evansariel/php74:latest
+    container_name: php74
     restart: unless-stopped
-    env_file:
-      - mysql.env
     networks:
       - mynet
+    volumes:
+      - /Applications/MAMP/htdocs:/projects
     depends_on:
       - mysql
     environment:
       DB_ROOT_PW: "1234"
-    volumes:
-      - /Applications/MAMP/htdocs:/projects
-      - ./docker/php-8/config/msmtprc:/etc/msmtprc:ro
-      - ./docker/php-8/config/php.ini:/usr/local/etc/php/conf.d/my.ini:ro
-      - ./docker/php-8/config/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
-      - ./docker/php-8/composer/:/root/.composer/
-      - ./projects/:/srv/projects/
-    logging: *default-logging
 networks:
   mynet:
     external: true
