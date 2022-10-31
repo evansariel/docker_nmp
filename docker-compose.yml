@@ -1,7 +1,8 @@
 version: "3"
 services:
   mysql:
-    restart: always
+    # restart: unless-stopped
+    # restart: always
     image: mysql:5.7
     container_name: mysql
     ports:
@@ -15,7 +16,7 @@ services:
       - ~/Library/Containers/com.docker.docker/Data/vms/db:/var/lib/mysql
       - ./conf/mysql/conf.d:/etc/mysql/conf.d
   nginx:
-    restart: unless-stopped
+    # restart: unless-stopped
     image: evansariel/nginx:latest
     container_name: nginx
     networks:
